@@ -1,7 +1,8 @@
+
 const express = require("express");
 const app = express();
 
-
+app.use(express.static("public"));
 const blogService = require('./blog-service');
 
 blogService.initialize()
@@ -14,7 +15,7 @@ blogService.initialize()
         console.log("Can't load blog."+ err);
     });
 
-app.use(express.static("public"));
+
 
 app.get("/", (req, res) => {
     res.redirect("/about");
@@ -56,5 +57,5 @@ app.get("/categories", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-    res.status(404).send("Page Not Found 404!!!"); //design
+  res.sendFile(__dirname + "/views/404page.html");
 });
