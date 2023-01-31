@@ -5,7 +5,7 @@
 * 
 *  Name: Anna Sychikova Student ID: 159363217 Date: 30 of Jan (starded 25/26)
 *
-*  Cyclic Web App URL: ________________________________________________________
+*  Cyclic Web App URL: https://outrageous-boa-gown.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/asychikova/web322appAnna
 *
