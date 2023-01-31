@@ -1,77 +1,61 @@
+/*********************************************************************************
+*  WEB322 – Assignment 02
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Anna Sychikova Student ID: 159363217 Date: 30 of Jan (starded 25/26)
+*
+*  Cyclic Web App URL: ________________________________________________________
+*
+*  GitHub Repository URL: https://github.com/asychikova/web322appAnna
+*
+********************************************************************************/ 
+
 const fs = require("fs");
-const express = require('express')
-const app = express()
 let posts = [];
 let categories = [];
 
-app.get('/blog', (req, res) => {
-    blogService.getAllPosts()
-        .then((posts) => {
-            res.json(posts);
-        })
-        .catch((err) => {
-            res.json({error: err});
-        });
-});
-
-const initialize = () => {
+function initialize () {
     return new Promise((resolve, reject) => {
         fs.readFile('./data/posts.json', 'utf8', (err, data) => {
-            if (err) {
-                reject("unable to read file");
-            } else {
-                posts = JSON.parse(data);
+            if (err) {reject("unable to read file");}
+             else { posts = JSON.parse(data);
                 fs.readFile('./data/categories.json', 'utf8', (err, data) => {
-                    if (err) {
-                        reject("unable to read file");
-                    } else {
-                        categories = JSON.parse(data);
-                        resolve();
-                    }
-                });
-            }
+                    if (err) {reject("unable to read file");}
+                     else {
+                        categories=JSON.parse(data);
+                        resolve();}
+                    });
+                }
+            });
         });
-    });
-}
+    }
 
-const getAllPosts = () => {
+function getAllPosts() {
     return new Promise((resolve, reject) => {
-        if (posts.length === 0) {
+        if (posts.length==0) {
             reject("no results returned");
-        } else {
-            resolve(posts);
-        }
+        } else {resolve(posts);}
     });
 }
 
-const getPublishedPosts = () => {
+function getPublishedPosts() {
     return new Promise((resolve, reject) => {
-        const publishedPosts = posts.filter(post => post.published === true);
-        if (publishedPosts.length === 0) {
+    const publishedPosts=posts.filter(post => post.published==true);
+        if (publishedPosts.length==0) {
             reject("no results returned");
-        } else {
-            resolve(publishedPosts);
-        }
+        } else {resolve(publishedPosts);}
     });
 }
 
-const getCategories = () => {
+function getCategories () {
     return new Promise((resolve, reject) => {
-        if (categories.length === 0) {
+        if (categories.length==0) {
             reject("no results returned");
-        } else {
-            resolve(categories);
-        }
+        } else {resolve(categories);}
     });
 }
 
-module.exports = {
-    initialize,
-    getAllPosts,
-    getPublishedPosts,
-    getCategories
-}
-
-
+module.exports = {initialize,getAllPosts,getPublishedPosts,getCategories} 
 
 

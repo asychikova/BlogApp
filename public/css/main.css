@@ -1,19 +1,27 @@
+/*Anna Sychikova*/
 html, body {
   background-image: url(img/about.jpg);
   height: 100%;
   margin: 0;
-  padding: 0;
   font-family: 'Open Sans', sans-serif;
 }
 header {
-  font-family: 'Archivo Black', sans-serif;
   background-color: rgb(0, 0, 0);
   color: rgb(255, 191, 64);
   padding: 20px;
   padding-left: 120px;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 2px solid rgb(28, 28, 28);
+}
+
+.welcome {
+  text-align: center;
+  font-size: 100px;
+  font-family: 'Stalinist One', cursive;
+  background-image: url(img/404.jpg);
+  background-clip: text;
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 header nav {
@@ -25,9 +33,7 @@ header nav p {
   font-size: 31px;
   margin-top: 0;
   margin-bottom: 0;
-  margin-left: 0;
   margin-right: 200px;
-  text-align: center;
 
 }
 header nav ul {
@@ -52,12 +58,12 @@ main {
   justify-content: space-between;
   padding-left: 8em;
   padding-right: 8em;
-  padding-top: 70px;
   padding-bottom: 70px;
   color: white;
 }
 main div {
-  width: 45%;
+  width: 46%;
+  background-color: rgba(0, 0, 0, 0.622);
 }
 
 h2 {
@@ -65,14 +71,8 @@ h2 {
   font-size: 20px;
 }
 footer {
-  font-family: 'Open Sans', sans-serif;
   background-color: black;
   color: white;
   text-align: center;
   padding: 8px;
-}
-
-footer div {
-  text-align: center;
-  color: rgb(255, 255, 255);
 }
