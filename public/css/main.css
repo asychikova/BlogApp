@@ -1,6 +1,6 @@
 /*Anna Sychikova*/
 html, body {
-  background-image: url(img/about.jpg);
+  background-image: url(./img/about.jpg);
   height: 100%;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
@@ -17,7 +17,7 @@ header {
   text-align: center;
   font-size: 100px;
   font-family: 'Stalinist One', cursive;
-  background-image: url(img/error.jpg);
+  background-image: url(./img/error.jpg);
   background-clip: text;
   background-size: cover;
   -webkit-background-clip: text;
