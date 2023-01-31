@@ -50,7 +50,7 @@ app.get("/categories", (req, res) => {
   .catch((err) => {console.log("Can't load categories. " + err);});
 });
 
-app.get("*", (req, res) => {res.sendFile(__dirname + "/views/404page.html");});
+app.get("*", (req, res) => {res.sendFile(__dirname + "/views/errorpage.html");});
 
 blogService
   .initialize()
