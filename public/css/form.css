@@ -1,0 +1,132 @@
+html,body {
+background-image: url(./img/about.jpg);
+}
+
+header {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 191, 64);
+    padding: 20px;
+    padding-left: 120px;
+    border-bottom: 2px solid rgb(28, 28, 28);
+  }
+
+
+  header nav {
+    display: flex;
+    align-items: center;
+  }
+  header nav p {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 31px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 200px;
+  
+  }
+  header nav ul {
+    font-family: 'Open Sans', sans-serif;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  header nav a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 10px 20px;
+  }
+  
+  header nav a:hover {
+    color: rgb(86, 86, 86);
+  }  
+
+form {
+border-radius: 18px;
+width: 500px;
+margin: 0 auto;
+text-align: left;
+padding: 5px 55px 55px 55px;
+background-color: #8a8a8ad1;;
+font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+color: rgb(255, 191, 64);
+margin-bottom: 20px;
+font-family: 'Archivo Black', sans-serif;
+}
+
+h2, h4 {
+margin-bottom: 20px;
+}
+
+hr {
+margin-top: 20px;
+margin-bottom: 20px;
+border: 0;
+border-top: 1px solid #ccc;
+}
+
+input[type="file"] {
+padding: 10px;
+margin-bottom: 20px;
+border: 1px solid #d7d7d7;
+border-radius: 18px;
+}
+
+textarea {
+width: 100%;
+padding: 10px;
+margin-bottom: 20px;
+resize: none;
+border-radius: 8px;
+border: 0;
+background: rgb(233, 233, 237);
+outline: none;
+}
+
+button[type="submit"] {
+padding: 10px 20px;
+background-color: rgb(255, 191, 64);
+color: rgb(0, 0, 0);
+border: none;
+border-radius: 4px;
+cursor: pointer;
+float: right;
+font-family: 'Archivo Black', sans-serif;
+}
+
+.postcontent1 {
+display: ruby;
+}
+
+.postcontent1 label[for="categories"] {
+margin-right: 30%;
+}
+label[for="published"] {
+margin-right: 30%;
+font-weight: bold;
+}
+
+label[for="visibility"] {
+font-weight: bold;
+margin-right: 30%;
+}
+.postcontent1 label[for="published"] {
+display: block;
+}
+
+.postcontent2 {
+display: flex;
+align-items: center;
+}
+
+.published-input {
+margin-right: 10px;
+}
+
+.select-cat {
+display: ruby;
+margin-top: 10px;
+}
