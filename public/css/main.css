@@ -1,78 +1,78 @@
 /*Anna Sychikova*/
 html, body {
-  background-image: url(./img/about.jpg);
-  height: 100%;
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
+    background-image: url(./img/about.jpg);
+    height: 100%;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 header {
-  background-color: rgb(0, 0, 0);
-  color: rgb(255, 191, 64);
-  padding: 20px;
-  padding-left: 120px;
-  border-bottom: 2px solid rgb(28, 28, 28);
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 191, 64);
+    padding: 20px;
+    padding-left: 120px;
+    border-bottom: 2px solid rgb(28, 28, 28);
 }
 
 .welcome {
-  text-align: center;
-  font-size: 100px;
-  font-family: 'Stalinist One', cursive;
-  background-image: url(./img/error.jpg);
-  background-clip: text;
-  background-size: cover;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-size: 100px;
+    font-family: 'Stalinist One', cursive;
+    background-image: url(./img/error.jpg);
+    background-clip: text;
+    background-size: cover;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 header nav {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 header nav p {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 31px;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 200px;
-
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 31px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 200px;
 }
+
 header nav ul {
-  font-family: 'Open Sans', sans-serif;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
+    font-family: 'Open Sans', sans-serif;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
 }
 header nav a {
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 10px 20px;
 }
 
 header nav a:hover {
-  color: rgb(86, 86, 86);
+    color: rgb(86, 86, 86);
 }
 main {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 8em;
-  padding-right: 8em;
-  padding-bottom: 70px;
-  color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 8em;
+    padding-right: 8em;
+    padding-bottom: 70px;
+    color: white;
 }
 main div {
-  width: 46%;
-  background-color: rgba(0, 0, 0, 0.622);
+    width: 46%;
+    background-color: rgba(0, 0, 0, 0.622);
 }
 
 h2 {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 20px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
 }
 footer {
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 8px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 8px;
 }
