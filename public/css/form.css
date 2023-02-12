@@ -47,8 +47,11 @@ width: 500px;
 margin: 0 auto;
 text-align: left;
 padding: 5px 55px 55px 55px;
-background-color: #8a8a8ad1;;
+background-color: #424242d1;
+color: white;
 font-family: 'Open Sans', sans-serif;
+margin-top: 5%;
+margin-bottom: 5%;
 }
 
 h1{
@@ -65,7 +68,7 @@ hr {
 margin-top: 20px;
 margin-bottom: 20px;
 border: 0;
-border-top: 1px solid #ccc;
+border-top: 1px solid rgb(255, 191, 64);
 }
 
 input[type="file"] {
@@ -95,6 +98,7 @@ border-radius: 4px;
 cursor: pointer;
 float: right;
 font-family: 'Archivo Black', sans-serif;
+font-size: 15px;
 }
 
 .postcontent1 {
