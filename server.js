@@ -26,6 +26,10 @@ app.get("/about", (req, res) => {
  res.sendFile(__dirname + "/views/about.html");
 });
 
+app.get("/posts/add", (req, res) => {
+  res.sendFile(__dirname + "/views/addPost.html");
+ });
+
 app.get('/blog', (req, res) => {
   blogService.getAllPosts()
   .then((posts) => {

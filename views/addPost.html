@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&family=Stalinist+One&display=swap" rel="stylesheet"> 
+
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <title>Add Post</title>
+</head>
+<html>
+  <head>
+    <style>
+      form {
+        border-radius: 18px;
+        width: 500px;
+        margin: 0 auto;
+        text-align: left;
+        padding: 5px 55px 55px 55px;
+        background-color: #393939d1;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+h1{
+    margin-bottom: 20px;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+      h2, h4 {
+        margin-bottom: 20px;
+      }
+      
+      hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 0;
+        border-top: 1px solid #ccc;
+      }
+      
+      input[type="file"] {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #8a8a8a;
+        border-radius: 18px;
+      }
+      
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        resize: none;
+        border-radius: 8px;
+        border: 0;
+        background: rgb(233, 233, 237);
+        outline: none;
+      }
+      
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #42b026;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+        font-family: 'Archivo Black', sans-serif;
+      }
+      
+      .postcontent1 {
+        display: ruby;
+      }
+      
+      .postcontent1 label[for="categories"] {
+        margin-right: 30%;
+      }
+      label[for="published"] {
+        margin-right: 30%;
+        font-weight: bold;
+      }
+
+      label[for="visibility"] {
+        font-weight: bold;
+        margin-right: 30%;
+      }
+      .postcontent1 label[for="published"] {
+        display: block;
+      }
+      
+      .postcontent2 {
+        display: flex;
+        align-items: center;
+      }
+      
+      .published-input {
+        margin-right: 10px;
+      }
+      
+      .select-cat {
+        display: ruby;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <h1 class="form">Add Post</h1-form>
+      <h2 class="form">Feature Image</h2>
+      <hr>
+      <input type="file" id="formFileMultiple" multiple="" value="Choose">
+      <h2>Post Content</h2>
+      <hr>
+      <h4 class="form">Title:</h4>
+      <textarea rows="1"></textarea>
+      <h4>Body:</h4>
+      <textarea rows="3"></textarea>
+      <div class="postcontent1">
+        <label for="visibility" >Category:</label>
+        <label for="published" >Visibility:</label>
+      </div>
+      <div class="postcontent2">
+ 
+        <select class="select-cat" id="categories">
+          <option value="1">Technology</option>
+          <option value="2">Gaming</option>
+          <option value="3">Fashion</option>
+          <option value="4">Education</option>
+          <option value="5">Wellness</option>
+        </select>
+
+        <input class="published" style="margin-left: 25%;" type="checkbox" id="published" value="" required>
+        <label for="published-input">Published</label>
+      </div>
+      <hr>
+      <button type="submit">Add Post</button>
+      
+    </form>
+</body>
+</html>
+
