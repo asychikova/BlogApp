@@ -52,7 +52,7 @@ function addPost (postData) {
       published: Boolean(postData.published),
     };
     posts.push(post);
-    fs.writeFile("./data/posts.json", JSON.stringify(posts), (err) => {
+    fs.writeFile("/data/posts.json", JSON.stringify(posts), (err) => {
       if (err) {
         reject(err);
       } else {
