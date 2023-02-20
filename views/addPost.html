@@ -33,38 +33,36 @@
           </ul>
         </nav>
       </header>
-    <form>
+    <form id="add-post-form" action="/posts/add" method="POST" enctype="multipart/form-data"> 
       <h1 class="form">Add Post</h1-form>
-      <h3 class="form">Feature Image</h3>
+      <h3 class="form" name="featureImage">Feature Image</h3>
       <hr>
-      <input type="file" id="formFileMultiple" multiple="" value="Choose">
+      <input  class="form-control" type="file" name="featureImage" id="formFileMultiple" multiple="" value="Choose">
       <h3>Post Content</h3>
       <hr>
       <h4 class="form">Title:</h4>
-      <textarea rows="1"></textarea>
+      <textarea id="title" rows="1" name="title"></textarea>
       <h4>Body:</h4>
-      <textarea rows="3"></textarea>
+      <textarea id="body" rows="3" name="body"></textarea>
       <div class="postcontent1">
         <label for="visibility" >Category:</label>
         <label for="published" >Visibility:</label>
       </div>
       <div class="postcontent2">
- 
-        <select class="select-cat" id="categories">
-          <option value="1">Technology</option>
-          <option value="2">Gaming</option>
-          <option value="3">Fashion</option>
-          <option value="4">Education</option>
-          <option value="5">Wellness</option>
+        <select id="category" class="select-cat" id="category" name="category">
+          <option value=1>Technology</option>
+          <option value=2>Gaming</option>
+          <option value=3>Fashion</option>
+          <option value=4>Education</option>
+          <option value=5>Wellness</option-->
         </select>
-
-        <input class="published" style="margin-left: 25%;" type="checkbox" id="published" value="" required>
-        <label for="published-input">Published</label>
+        <input type="checkbox" class="published" style="margin-left: 25%;" id="published" name="published" value="true">
+        <label class="custom-control-label" for="published-input">Published</label>
       </div>
       <hr>
-      <button type="submit">Add Post</button>
-      
+      <button type="submit" id="submit-button">Add Post</button>
     </form>
 </body>
 </html>
+
 
