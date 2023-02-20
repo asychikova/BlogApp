@@ -22,7 +22,7 @@ const streamifier = require("streamifier")
 const blogService = require("./blog-service");
 
 var HTTP_PORT = process.env.PORT || 8080;
-
+app.use(express.urlencoded({ extended: true }));
 const upload = multer();
 
 app.use(express.static("public"));
@@ -91,8 +91,6 @@ app.get("/post/:id", (req, res) => {
     });
 });
 
-
-
 app.get("/categories", (req, res) => {
 blogService.getCategories()
 .then((categories) => {
@@ -104,9 +102,7 @@ blogService.getCategories()
 app.get("/posts/add", (req, res) => {
   res.sendFile(__dirname + "/views/addPost.html");
   });
-
-
-  
+ 
 app.post("/posts/add", upload.single("featureImage"), (req, res) => {
   if (req.file) {
     let streamUpload = (req) => {
@@ -135,20 +131,17 @@ app.post("/posts/add", upload.single("featureImage"), (req, res) => {
       processPost("");
     }
 
-      function processPost(imageUrl) {
-        req.body.featureImage = imageUrl;
-        blogService
-          .addPost(req.body)
-          .then(() => {
-            return blogService.getPublishedPosts();
-          })
-          .then((publishedPosts) => {
-            res.redirect('/posts');
-          })
-          .catch((err) => {
-            res.send({ message: err });
-          });
-        }
+    function processPost(imageUrl) {
+      req.body.featureImage = imageUrl;
+      blogService
+        .addPost(req.body)
+        .then(() => {
+          res.redirect("/posts");
+        })
+        .catch((err) => {
+          res.send({ message: err });
+        });
+      }
   });
   
   app.use((req, res) => {
@@ -171,5 +164,3 @@ app.post("/posts/add", upload.single("featureImage"), (req, res) => {
   })
   .catch((err) => {console.log("Can't load blog."+ err);});
   app.get("*", (req, res) => {res.sendFile(__dirname + "/views/errorpage.html");});
-
-  

@@ -40,6 +40,24 @@ function getAllPosts() {
     });
 }
 
+function getPublishedPosts() {
+  return new Promise((resolve, reject) => {
+  const publishedPosts=posts.filter(post => post.published==true);
+      if (publishedPosts.length==0) {
+          reject("No results returned");
+      } else {resolve(publishedPosts);}
+  });
+}
+
+function getCategories () {
+  return new Promise((resolve, reject) => {
+      if (categories.length==0) {
+          reject("No results returned");
+      } else {resolve(categories);}
+  });
+}
+
+
 function addPost (postData) {
   return new Promise((resolve, reject) => {
     let post = {
@@ -51,33 +69,21 @@ function addPost (postData) {
       featureImage: postData.featureImage,
       published: Boolean(postData.published),
     };
-    posts.push(post);
-    fs.writeFile("./data/posts.json", JSON.stringify(posts), (err) => {
+    /*posts.push(post);
+    fs.writeFile("data/posts.json", JSON.stringify(posts), (err) => {
       if (err) {
         reject(err);
       } else {
         resolve(post);
       }
-    });
+    });*/
+
+    console.log(post);
+    posts.push(post);
+    resolve();
+   /* });*/
   });
 };
-
-function getPublishedPosts() {
-    return new Promise((resolve, reject) => {
-    const publishedPosts=posts.filter(post => post.published==true);
-        if (publishedPosts.length==0) {
-            reject("No results returned");
-        } else {resolve(publishedPosts);}
-    });
-}
-
-function getCategories () {
-    return new Promise((resolve, reject) => {
-        if (categories.length==0) {
-            reject("No results returned");
-        } else {resolve(categories);}
-    });
-}
 
 async function getPostsByCategory(category) {
   try {
@@ -135,6 +141,8 @@ module.exports = {
   getPostsByMinDate,
   getPostById
 } 
+
+
 
 
 
