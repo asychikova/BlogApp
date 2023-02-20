@@ -99,6 +99,7 @@ async function getPostsByCategory(category) {
     }
   } catch (err) {
     console.error(err);
+    throw err;
   }
 }
 
@@ -117,6 +118,7 @@ async function getPostsByMinDate(minDate) {
     }
   } catch (err) {
     console.error(err);
+    throw err;
   }
 }
 
