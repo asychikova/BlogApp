@@ -49,6 +49,17 @@ function getPublishedPosts() {
   });
 }
 
+function getPublishedPostsByCategory(category) {
+  return new Promise((resolve, reject) => {
+    const publishedPostsByCategory = posts.filter(post => post.published == true && post.category == category);
+    if (publishedPostsByCategory.length == 0) {
+      reject("No results returned");
+    } else {
+      resolve(publishedPostsByCategory);
+    }
+  });
+}
+
 function getCategories () {
   return new Promise((resolve, reject) => {
       if (categories.length==0) {
@@ -57,7 +68,24 @@ function getCategories () {
   });
 }
 
+function addPost(postData) {
+  return new Promise((resolve, reject) => {
+    const postDate = new Date().toISOString().slice(0, 10);
+    const post = {
+      id: posts.length + 1,
+      body: postData.body,
+      title: postData.title,
+      postDate: postDate,
+      category: parseInt(postData.category),
+      featureImage: postData.featureImage,
+      published: Boolean(postData.published),
+    };
+    posts.push(post);
+    resolve();
+  });
+} 
 
+ /*
 function addPost (postData) {
   return new Promise((resolve, reject) => {
     let post = {
@@ -69,21 +97,11 @@ function addPost (postData) {
       featureImage: postData.featureImage,
       published: Boolean(postData.published),
     };
-    /*posts.push(post);
-    fs.writeFile("data/posts.json", JSON.stringify(posts), (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(post);
-      }
-    });*/
-
     console.log(post);
     posts.push(post);
     resolve();
-   /* });*/
   });
-};
+}; */
 
 async function getPostsByCategory(category) {
   try {
@@ -93,7 +111,6 @@ async function getPostsByCategory(category) {
     if (filteredPosts.length === 0) {
       throw "No results returned(Category)";
     } else {
-      // sort in ascending order by id 
      const sortedPosts = filteredPosts.sort((a, b) => a.id - b.id);
       return sortedPosts;
     }
@@ -112,7 +129,6 @@ async function getPostsByMinDate(minDate) {
     if (filteredPosts.length === 0) {
       throw "No results returned(minDate)";
     } else {
-      // sort in ascending order by date
       const sortedPosts = filteredPosts.sort((a, b) => new Date(a.postDate) - new Date(b.postDate));
       return sortedPosts;
     }
@@ -124,7 +140,7 @@ async function getPostsByMinDate(minDate) {
 
 function getPostById(id) {
   return new Promise((resolve, reject) => {
-    const post = posts.find((post) => post.id === id);
+    const post = posts.find((post) => post.id === parseInt(id));
     if (post) {
       resolve(post);
     } else {
@@ -132,12 +148,24 @@ function getPostById(id) {
     }
   });
 }
+
+/* function getPostById(id) {
+  return new Promise((resolve, reject) => {
+    const post = posts.find((post) => post.id === id);
+    if (post) {
+      resolve(post);
+    } else {
+      reject(`Post not found`); 
+    }
+  });
+} */
   
 module.exports = {
   initialize,
   getAllPosts,
   getPublishedPosts,
   getCategories,
+  getPublishedPostsByCategory,
   addPost,
   getPostsByCategory,
   getPostsByMinDate,

@@ -1,0 +1,46 @@
+<!--Anna Sychikova-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../css/posts.css" rel="stylesheet" type="text/css" media="all">
+  <title>Posts</title>
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Posts</h2>
+    <hr />
+      <table class="table">
+          <tr>
+            <th>Post ID</th>
+            <th>Title</th>
+             <th>Post Date</th>
+             <th>Category</th>
+             <th>Published</th>
+          </tr>
+        <tbody>
+          {{#each posts}}
+            <tr>
+              <td>{{this.id}}</td>
+              <td>{{this.title}}</td>
+              <td>{{this.postDate}}</td>
+              <td><a href="/posts?category={{this.category}}">{{this.category}}</a></td>
+              <td>{{this.published}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{#unless posts}}
+      <div class="col-md-12 text-center">
+        <strong>{{message}}</strong>
+      </div>
+    {{/unless}}
+  </div>
+</div>
+</body>
+</html>   
+
+

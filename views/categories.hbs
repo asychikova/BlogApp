@@ -1,0 +1,40 @@
+<!--Anna Sychikova-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="../css/categories.css" rel="stylesheet" type="text/css" media="all">
+  <title>Categories</title>
+</head>
+
+<body>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Categories</h2>
+    <hr />
+    <h4>Click on category ID or category Name to see list of posts</h4>
+      <table class="table">
+          <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+          </tr>
+        <tbody>
+          {{#each categories}}
+          <tr>
+            <td><a href="/posts?category={{this.id}}">{{this.id}}</a></td>
+            <td><a href="/posts?category={{this.id}}">{{this.category}}</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{#unless categories}}
+    <div class="col-md-12">
+      <strong>{{message}}</strong>
+    </div>
+    {{/unless}}
+  </div>
+</div>
+</body>
+</html>

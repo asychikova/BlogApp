@@ -1,0 +1,43 @@
+<!--Anna Sychikova-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <link href="../css/main.css" rel="stylesheet" type="text/css" media="all">
+     <link href="../css/form.css" rel="stylesheet" type="text/css" media="all">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&family=Stalinist+One&display=swap" rel="stylesheet"> 
+
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <title>Anna Sychikova blog</title>
+</head>
+  <body>
+      <header>
+        <nav>
+          <ul>
+            <p>WEB322 - Anna Sychikova</p>
+           {{#navLink "/about"}}About{{/navLink}}
+           {{#navLink "/blog"}}Blog{{/navLink}}
+           {{#navLink "/posts"}}Posts{{/navLink}}
+           {{#navLink "/posts/add"}}Add Post{{/navLink}}
+           {{#navLink "/categories"}}Categories{{/navLink}}  
+          </ul>
+        </nav>
+      </header>
+    <main>
+      <div class="container">
+        {{{body}}}
+      </div>
+    </main>
+  </body>
+</html>
