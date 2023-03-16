@@ -15,7 +15,10 @@
         {{#if data.post}}
         <article>
             <h2>{{data.post.title}}</h2>
-            <img src="{{data.post.featureImage}}" alt="feature Image" style="width:100%" />
+            <!--img src="{{data.post.featureImage}}" alt="feature Image" style="width:100%" /-->
+            <!--Next line of code with onerror="this.src='default-image.jpg'" I found on "stackoverflow" when I tried to resolve issue "Loading mixed (insecure) content" -->
+            <img src="{{data.post.featureImage}}" alt="feature Image" style="width:100%" onerror="this.src='default-image.jpg'"/> 
+
             <br /><br />
             {{{safeHTML data.post.body}}}
             <br /><br />
