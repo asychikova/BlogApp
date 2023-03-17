@@ -70,7 +70,9 @@ function getCategories () {
 
 function addPost(postData) {
   return new Promise((resolve, reject) => {
-    const postDate = new Date().toISOString().slice(0, 10);
+    const postDate = new Date().toISOString().slice(0, 10); //I saw slice method about 1 or 2 weeks ago on Instagram and I save 
+    // it for the future. There was example of splice, slice and another methods and now I decided to try one of them in my code 
+    // there is a link: https://www.instagram.com/p/ClY6-dqDVqv/?igshid=YmMyMTA2M2Y=
     const post = {
       id: posts.length + 1,
       body: postData.body,
