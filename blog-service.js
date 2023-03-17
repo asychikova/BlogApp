@@ -4,7 +4,7 @@
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Anna Sychikova Student ID: 159363217 Date: ~12 of Feb (or earlier(when assignment was uploaded))
+*  Name: Anna Sychikova Student ID: 159363217 Date: 13 of Feb 
 *
 *  Cyclic Web App URL: https://outrageous-boa-gown.cyclic.app/about
 *
