@@ -56,7 +56,7 @@ Handlebars.registerHelper("equal", function (lvalue, rvalue, options) {
 });
 
 Handlebars.registerHelper("safeHTML", function(context) {
-  return new Handlebars.SafeString(stripJs(context));
+  return stripJs(context);
 });
 
 app.use(express.static("public"));
