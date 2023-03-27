@@ -36,22 +36,25 @@
         <label for="visibility" >Category:</label>
         <label for="published" >Visibility:</label>
       </div>
-      <div class="postcontent2">
-        <select id="category" class="select-cat" id="category" name="category">
-          <option value=1>Technology</option>
-          <option value=2>Gaming</option>
-          <option value=3>Fashion</option>
-          <option value=4>Education</option>
-          <option value=5>Wellness</option-->
-        </select>
-        <input type="checkbox" class="published" style="margin-left: 25%;" id="published" name="published" value="true">
-        <label class="custom-control-label" for="published-input">Published</label>
-      </div>
+<div class="postcontent2">
+  {{#if categories}}
+  <select class="form-control" name="category" id="category">
+    {{#each categories}}
+    <option value="{{id}}">{{category}}</option>
+    {{/each}}
+  </select>
+  {{else}}
+  <div>No Categories</div>
+  {{/if}}
+  <input type="checkbox" class="published" style="margin-left: 25%;" id="published" name="published" value="true">
+  <label class="custom-control-label" for="published-input">Published</label>
+</div>
       <hr>
       <button type="submit" id="submit-button">Add Post</button>
     </form>
   </div>
 </body>
 </html>
+
 
 

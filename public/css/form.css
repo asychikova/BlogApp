@@ -100,6 +100,10 @@ button[type="submit"] {
     font-size: 15px;
 }
 
+button[type="submit"]:hover {
+    background-color: #00b90c;
+  }
+
 .postcontent1 {
     display: ruby;
 }

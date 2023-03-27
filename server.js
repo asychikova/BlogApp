@@ -1,10 +1,10 @@
 /*********************************************************************************
-*  WEB322 – Assignment 04
+*  WEB322 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part 
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Anna Sychikova Student ID: 159363217 Date: 13 of Feb 
+*  Name: Anna Sychikova Student ID: 159363217 Date: 22 of Mar
 *
 *  Cyclic Web App URL: https://outrageous-boa-gown.cyclic.app/about
 *
@@ -29,6 +29,8 @@ const cloudinary = require("cloudinary").v2
 const streamifier = require("streamifier")
 const blogService = require("./blog-service");
 
+app.use(express.urlencoded({extended: true}));
+
 var HTTP_PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 const upload = multer();
@@ -39,6 +41,15 @@ const upload = multer();
   app.locals.viewingCategory = req.query.category;
   next();
 });
+
+const formatDate = function(dateObj){
+  let year = dateObj.getFullYear();
+  let month = (dateObj.getMonth() + 1).toString();
+  let day = dateObj.getDate().toString();
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2,'0')}`;
+};
+
+Handlebars.registerHelper("formatDate", formatDate);
 
 Handlebars.registerHelper("navLink", function(url, options){
   return '<li' + 
@@ -125,7 +136,7 @@ app.get("/blog/:id", async (req, res) => {
           posts = await blogService.getPublishedPosts();
       }
       // sort the published posts by postDate
-      posts.sort((a,b) => new Date(b.postDate) - new Date(a.postDate));
+     // posts.sort((a,b) => new Date(b.postDate) - new Date(a.postDate));
       // store the "posts" and "post" data in the viewData object (to be passed to the view)
       viewData.posts = posts;
 
@@ -153,35 +164,45 @@ app.get("/blog/:id", async (req, res) => {
 });
 
 
-app.get("/posts", (req, res) => {
+app.get("/posts", async (req, res) => {
   let category = req.query.category;
   let minDate = req.query.minDate;
 
   if (category) {
     category = parseInt(category);
-    blogService.getPostsByCategory(category)
-    .then((filteredPosts) => {
-      res.render("posts", {posts: filteredPosts});
-      })
-      .catch((err) => {
-        res.render("posts", {message: err});
-      });
+    try {
+      const filteredPosts = await blogService.getPostsByCategory(category);
+      if (filteredPosts.length > 0) {
+        res.render("posts", {posts: filteredPosts});
+      } else {
+        res.render("posts", {message: "no results"});
+      }
+    } catch (err) {
+      res.render("posts", {message: err});
+    }
   } else if (minDate) {
-    blogService.getPostsByMinDate(minDate)
-    .then((filteredPosts) => {
-      res.render("posts", {posts: filteredPosts});
-      })
-      .catch((err) => {
-        res.render("posts", {message: err});
-      });
+    try {
+      const filteredPosts = await blogService.getPostsByMinDate(minDate);
+      if (filteredPosts.length > 0) {
+        res.render("posts", {posts: filteredPosts});
+      } else {
+        res.render("posts", {message: "no results"});
+      }
+    } catch (err) {
+      res.render("posts", {message: err});
+    }
   } else {
-    blogService.getAllPosts()
-      .then((posts) => {
+    try {
+      const posts = await blogService.getAllPosts();
+      if (posts.length > 0) {
+        posts.sort((a, b) => (new Date(a.postDate) - new Date(b.postDate)));
         res.render("posts", {posts: posts});
-      })
-      .catch((err) => {
-        res.render("posts", {message: err});
-      });
+      } else {
+        res.render("posts", {message: "no results"});
+      }
+    } catch (err) {
+      res.render("posts", {message: err});
+    }
   }
 });
 
@@ -203,58 +224,104 @@ app.get("/post/:id", (req, res) => {
 app.get("/categories", (req, res) => {
   blogService.getCategories()
     .then((categories) => {
-      res.render("categories", { categories: categories });
+      if (categories.length > 0) {
+        res.render("categories", { categories: categories });
+      } else {
+        res.render("categories", { message: "No results found" });
+      }
     })
     .catch((err) => {
-      res.render("categories", { message: "no results" });
+      res.render("categories", { message: err });
     });
 });
 
-app.get("/posts/add", (req, res) => {
-  res.render("addPost");
+app.get("/posts/add", async (req, res) => {
+  try {
+    const categories = await blogService.getCategories();
+    res.render("addPost", { categories });
+  } catch (err) {
+    console.log(err);
+    res.render("addPost", { categories: [] });
+  }
 });
 
-app.post("/posts/add", upload.single("featureImage"), (req, res) => {
-  if (req.file) {
-    let streamUpload = (req) => {
-      return new Promise((resolve, reject) => {
-        let stream = cloudinary.uploader.upload_stream((error, result) => {
-          if (result) {
-            resolve(result);
-          } else {
-            reject(error);
-          }
+  app.post("/posts/add", upload.single("featureImage"), (req, res) => {
+    if (req.file) {
+      let streamUpload = (req) => {
+        return new Promise((resolve, reject) => {
+          let stream = cloudinary.uploader.upload_stream((error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          });
+          streamifier.createReadStream(req.file.buffer).pipe(stream);
         });
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
-      });
-    };
-  
-    async function upload(req) {
-      let result = await streamUpload(req);
-      console.log(result);
-      return result;
-    }
-  
-      upload(req).then((uploaded) => {
-        processPost(uploaded.url);
-      });
-    } else {
-      processPost("");
-    }
-
-    function processPost(imageUrl) {
-      req.body.featureImage = imageUrl;
-      blogService
-        .addPost(req.body)
-        .then(() => {
-          res.redirect("/posts");
-        })
-        .catch((err) => {
-          res.send({ message: err });
-        });
+      };
+    
+      async function upload(req) {
+        let result = await streamUpload(req);
+        console.log(result);
+        return result;
       }
-  });
+    
+        upload(req).then((uploaded) => {
+          processPost(uploaded.url);
+        });
+      } else {
+        processPost("");
+      }
   
+      function processPost(imageUrl) {
+        req.body.featureImage = imageUrl;
+        blogService
+          .addPost(req.body)
+          .then(() => {
+            res.redirect("/posts");
+          })
+          .catch((err) => {
+            res.send({ message: err });
+          });
+        }
+    });
+    
+app.get("/categories/add", (req, res) => {
+  res.render("addCategory");
+}); 
+
+app.post("/categories/add", (req, res) => {
+  blogService
+    .addCategory(req.body)
+    .then(() => {
+      res.redirect("/categories");
+    })
+    .catch((err) => {
+      res.send({ message: err });
+    });
+});
+  
+app.get("/categories/delete/:id", (req, res) => {
+  blogService
+    .deleteCategoryById(req.params.id)
+    .then(() => {
+      res.redirect("/categories");
+    })
+    .catch((err) => {
+      res.status(500).send("Unable to Remove Category / Category not found");
+    });
+});
+
+app.get("/posts/delete/:id", (req, res) => {
+  blogService.deletePostById(req.params.id)
+    .then(() => {
+      res.redirect("/posts");
+    })
+    .catch(() => {
+      res.status(500).send("Unable to Remove Post / Post not found");
+    });
+});
+
   cloudinary.config({
     cloud_name: 'dixlrbgil',
     api_key: '264933176431443',
@@ -276,3 +343,4 @@ app.post("/posts/add", upload.single("featureImage"), (req, res) => {
     .catch((err) => {
       console.log("Can't load blog."+ err);
     });
+
