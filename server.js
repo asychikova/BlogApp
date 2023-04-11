@@ -1,10 +1,11 @@
 /*********************************************************************************
-*  WEB322 – Assignment 05
+*  WEB322 – Assignment 06
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part 
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
+*   EXCEPT web322 course official page: https://web322.ca/
 * 
-*  Name: Anna Sychikova Student ID: 159363217 Date: 22 of Mar
+*  Name: Anna Sychikova Student ID: 159363217 Date: I started 3/4 of April
 *
 *  Cyclic Web App URL: https://outrageous-boa-gown.cyclic.app 
 *
@@ -12,30 +13,70 @@
 *
 ********************************************************************************/ 
 
-const stripJs = require("strip-js");
-
 const express = require("express");
+const app = express();
+
 const exphbs = require("express-handlebars");
 const Handlebars = require("handlebars"); 
 
-const app = express();
 const path = require("path");
 
-app.engine(".hbs", exphbs.engine({ extname: ".hbs" }));
-app.set("view engine", ".hbs");
-
+const clientSessions = require('client-sessions');
 const multer = require("multer");
+
 const cloudinary = require("cloudinary").v2
 const streamifier = require("streamifier")
 const blogService = require("./blog-service");
 
-app.use(express.urlencoded({extended: true}));
+const stripJs = require("strip-js");
 
-var HTTP_PORT = process.env.PORT || 8080;
-app.use(express.urlencoded({ extended: true }));
+const authData = require('./auth-service'); 
+
+app.use(express.urlencoded({extended: true}));
+app.use(clientSessions({
+  cookieName: 'session',
+  secret: 'GoodDay',
+  duration: 2 * 60 * 1000,
+  activeDuration: 1000 * 60
+}));
+
+app.use(function(req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
+
+const fs = require("fs");
+const http = require("http");
+const https = require("https");
+
+const HTTP_PORT = process.env.PORT || 8080;
+const HTTPS_PORT = 4433;
+
+const ASSETS = "./assets/";
+
+const SSL_KEY_FILE = ASSETS + "server.key";
+const SSL_CRT_FILE = ASSETS + "server.crt";
+
+const https_options = {
+    key: fs.readFileSync(__dirname + "/" + SSL_KEY_FILE),
+    cert: fs.readFileSync(__dirname + "/" + SSL_CRT_FILE)
+};
+
+function ensureLogin(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+app.engine(".hbs", exphbs.engine({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+app.use(express.static("public"));
+
 const upload = multer();
 
- app.use(function(req,res,next){
+app.use(function(req,res,next){
   let route = req.path.substring(1);
   app.locals.activeRoute = "/" + (isNaN(route.split('/')[1]) ? route.replace(/\/(?!.*)/, "") : route.replace(/\/(.*)/, ""));
   app.locals.viewingCategory = req.query.category;
@@ -70,15 +111,14 @@ Handlebars.registerHelper("safeHTML", function(context) {
   return stripJs(context);
 });
 
-app.use(express.static("public"));
-
 module.exports = app;
+
 
 app.get("/", (req, res) => {
   res.redirect("/blog");
  });
 
-app.get("/about", (req, res) => {
+ app.get("/about", (req, res) => {
   res.render("about");
 });
 
@@ -163,8 +203,7 @@ app.get("/blog/:id", async (req, res) => {
   res.render("blog", {data: viewData})
 });
 
-
-app.get("/posts", async (req, res) => {
+app.get("/posts", ensureLogin, async (req, res) => {
   let category = req.query.category;
   let minDate = req.query.minDate;
 
@@ -206,7 +245,7 @@ app.get("/posts", async (req, res) => {
   }
 });
 
-app.get("/post/:id", (req, res) => {
+app.get("/post/:id", ensureLogin, (req, res) => {
   const id = parseInt(req.params.id);
   console.log("ID:", id);
   blogService
@@ -221,7 +260,7 @@ app.get("/post/:id", (req, res) => {
     });
 });
 
-app.get("/categories", (req, res) => {
+app.get("/categories", ensureLogin, (req, res) => {
   blogService.getCategories()
     .then((categories) => {
       if (categories.length > 0) {
@@ -235,7 +274,7 @@ app.get("/categories", (req, res) => {
     });
 });
 
-app.get("/posts/add", async (req, res) => {
+app.get("/posts/add", ensureLogin, async (req, res) => {
   try {
     const categories = await blogService.getCategories();
     res.render("addPost", { categories });
@@ -245,7 +284,7 @@ app.get("/posts/add", async (req, res) => {
   }
 });
 
-  app.post("/posts/add", upload.single("featureImage"), (req, res) => {
+  app.post("/posts/add", ensureLogin, upload.single("featureImage"), (req, res) => {
     if (req.file) {
       let streamUpload = (req) => {
         return new Promise((resolve, reject) => {
@@ -285,12 +324,12 @@ app.get("/posts/add", async (req, res) => {
           });
         }
     });
-    
-app.get("/categories/add", (req, res) => {
+  
+app.get("/categories/add", ensureLogin, (req, res) => {
   res.render("addCategory");
 }); 
 
-app.post("/categories/add", (req, res) => {
+app.post("/categories/add", ensureLogin, (req, res) => {
   blogService
     .addCategory(req.body)
     .then(() => {
@@ -301,7 +340,7 @@ app.post("/categories/add", (req, res) => {
     });
 });
   
-app.get("/categories/delete/:id", (req, res) => {
+app.get("/categories/delete/:id", ensureLogin, (req, res) => {
   blogService
     .deleteCategoryById(req.params.id)
     .then(() => {
@@ -312,7 +351,7 @@ app.get("/categories/delete/:id", (req, res) => {
     });
 });
 
-app.get("/posts/delete/:id", (req, res) => {
+app.get("/posts/delete/:id", ensureLogin, (req, res) => {
   blogService.deletePostById(req.params.id)
     .then(() => {
       res.redirect("/posts");
@@ -329,18 +368,75 @@ app.get("/posts/delete/:id", (req, res) => {
     secure: true
   });
 
-  app.get("*", (req, res) => {
-    res.render("errorpage", {errorMessage: "ERROR 404"});
-  });
-  
-  blogService
-    .initialize()
+app.get('/login', function(req, res) {
+  res.render('login');
+});
+
+app.get('/register', function(req, res) {
+  res.render('register');
+});
+
+app.post("/register", function(req, res) {
+  authData.registerUser(req.body)
     .then(() => {
-      app.listen(HTTP_PORT, () => {
-        console.log("Express http server listening on port", + HTTP_PORT);
-      });
+      res.render("register", { successMessage: "User created" });
     })
     .catch((err) => {
-      console.log("Can't load blog."+ err);
+      res.render("register", { errorMessage: err, userName: req.body.userName });
     });
+});
 
+app.post('/login', (req, res) => {
+  req.body.userAgent = req.get('User-Agent');
+  authData.checkUser(req.body)
+    .then((user) => {
+      req.session.user = {
+        userName: user.userName,
+        email: user.email,
+        loginHistory: user.loginHistory
+      };
+        res.redirect('/posts');
+      })
+      .catch((err) => {
+        res.render('login', {
+          errorMessage: err,
+          userName: req.body.userName
+        });
+      });
+  });
+
+app.get('/logout', (req, res) => {
+  req.session.reset();
+  res.redirect('/');
+});
+
+app.get('/userHistory', ensureLogin, (req, res) => {
+  res.render('userHistory', {
+    title: '${req.session.user.userName} ( ${req.session.user.email} ) History',
+    loginHistory: req.session.user.loginHistory
+  });
+});
+
+app.get("*", (req, res) => {
+  res.render("errorpage", {errorMessage: "ERROR 404"});
+});
+
+function onHttpStart() {
+  console.log("Express http server listening on: " + HTTP_PORT);
+}
+
+function onHttpsStart() {
+  console.log("Express https server listening on: " + HTTPS_PORT);
+}
+
+blogService.initialize()
+.then(() => {
+  return authData.initialize();
+})
+.then(() => {
+  http.createServer(app).listen(HTTP_PORT, onHttpStart);
+  https.createServer(https_options, app).listen(HTTPS_PORT, onHttpsStart);
+})
+.catch((err) => {
+  console.log("Can't load blog."+ err);
+});
