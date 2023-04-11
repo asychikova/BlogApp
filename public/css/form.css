@@ -17,7 +17,7 @@ header nav {
 }
 header nav p {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 31px;
+    font-size: 22px;
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 200px;
@@ -87,6 +87,7 @@ textarea {
     background: rgb(233, 233, 237);
     outline: none;
 }
+
 
 button[type="submit"] {
     padding: 10px 20px;

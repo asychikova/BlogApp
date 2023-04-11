@@ -1,0 +1,22 @@
+<h2 style="font-size: 28px; text-transform: uppercase;">History</h2>
+
+     <hr />
+<h2 style="color: #ffbf40">{{session.user.userName}} ({{session.user.email}}) </h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Login Date/Time</th>
+      <th>Client Information</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each session.user.loginHistory}}
+      <tr>
+        <td>{{this.dateTime}}</td>
+        <td>{{this.userAgent}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table> 
+
+

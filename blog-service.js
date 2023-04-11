@@ -1,10 +1,11 @@
 /*********************************************************************************
-*  WEB322 – Assignment 05
+*  WEB322 – Assignment 06
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part 
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
-* 
-*  Name: Anna Sychikova Student ID: 159363217 Date: 22 of Mar
+*   EXCEPT web322 course official page: https://web322.ca/
+*
+*  Name: Anna Sychikova Student ID: 159363217 Date: I started 3/4 of April
 *
 *  Cyclic Web App URL: https://outrageous-boa-gown.cyclic.app 
 *
@@ -22,7 +23,8 @@ var sequelize = new Sequelize('zbjnypvr', 'zbjnypvr', 'KjxqfrAWpJ-9Ffz7VIP1drIwu
     dialectOptions: {
         ssl: { rejectUnauthorized: false }
     },
-    query: { raw: true }
+    query: { raw: true },
+    
 });
 
 const fs = require("fs");

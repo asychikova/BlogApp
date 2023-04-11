@@ -1,4 +1,3 @@
-<!--Anna Sychikova-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,38 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
     <link href="../css/main.css" rel="stylesheet" type="text/css" media="all">
-     <link href="../css/form.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/form.css" rel="stylesheet" type="text/css" media="all">
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&family=Stalinist+One&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&family=Stalinist+One&display=swap" rel="stylesheet"> 
 
-<link rel="preconnect" href="https://fonts.googleapis.com"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
     <title>Anna Sychikova blog</title>
 </head>
-  <body>
-      <header>
-        <nav>
-          <ul>
-            <p>WEB322 - Anna Sychikova</p>
-           {{#navLink "/about"}}About{{/navLink}}
-           {{#navLink "/blog"}}Blog{{/navLink}}
-           {{#navLink "/posts"}}Posts{{/navLink}}
-          <!-- {{#navLink "/posts/add"}}Add Post{{/navLink}} -->
-           {{#navLink "/categories"}}Categories{{/navLink}}  
+<body>
+  <header>
+    <nav>
+      <ul>
+        <p>WEB322 - Anna Sychikova</p>
+        <li>{{#navLink "/about"}}About{{/navLink}}</li>
+        <li>{{#navLink "/blog"}}Blog{{/navLink}}</li>
+        
+        {{#if session.user}}
+          
+            
+  <li> <a href="/userHistory" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{session.user.userName}}</a></li>
+<li> <a href="/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Log Out</a></li>
+
+
+
+          
+    
+          <ul class="nav navbar-nav navbar-right">
+           <li>{{#navLink "/posts"}}Posts{{/navLink}}</li> 
+            <li>{{#navLink "/categories"}}Categories{{/navLink}}</li> 
           </ul>
-        </nav>
-      </header>
-    <main>
-      <div class="container">
-        {{{body}}}
+        {{else}}
+         
+           <li> <a href="/register" class="btn btn-success"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Register</a> </li>
+           <li> <a href="/login" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;Log In</a></li>
+     
+        {{/if}}
+        
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div class="container">
+      {{{body}}}
+    </div>
+  </main>
+    <footer>
+      <div>
+        <p>Contact me <a style="color: rgb(255, 191, 64); text-decoration: none;" href="mailto:someone@example.com">asychikova@myseneca.ca</a></p>
       </div>
-    </main>
-  </body>
-</html>
+  </footer>
+</body>
+
+
+
+
+
+
+
+
+
+
